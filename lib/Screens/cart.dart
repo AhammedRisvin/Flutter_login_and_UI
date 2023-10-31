@@ -11,12 +11,12 @@ class ScreenCart extends StatelessWidget {
         title: const Text('Order #1688068'),
         centerTitle: true,
         elevation: 10,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        //   icon: const Icon(Icons.arrow_back),
+        // ),
       ),
       body: Column(
         children: [
@@ -123,7 +123,7 @@ class ScreenCart extends StatelessWidget {
                   width: 90,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.red,
+                    color: Colors.grey,
                   ),
                   child: Image.asset("assets/images/T-Shirt1.png"),
                 ),
@@ -464,30 +464,6 @@ class ScreenCart extends StatelessWidget {
                     ),
                   ],
                 )
-                // Row(
-                //   children: [
-                //     Column(
-                //       children: [
-                //         Text("City"),
-                //         Column(
-                //           children: [
-                //             Text("Banglore"),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //     Column(
-                //       children: [
-                //         Text("Pincode"),
-                //         Column(
-                //           children: [
-                //             Text("560061"),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           )

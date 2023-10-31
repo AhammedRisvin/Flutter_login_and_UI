@@ -92,8 +92,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                   : Icons.visibility_off),
                             ),
                           ),
-                          validator: (Value) {
-                            if (Value == null || Value.isEmpty) {
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return "Password cant be empty";
                             } else {
                               return null;
@@ -129,7 +129,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
   final password = '123';
 
   void checkLogin(BuildContext ctx) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _username = _usernameController.text;
+    // ignore: no_leading_underscores_for_local_identifiers
     final _password = _passwordController.text;
 
     if (_username == username && _password == password) {
