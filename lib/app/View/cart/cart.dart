@@ -408,6 +408,7 @@ class ScreenCart extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    // ignore: sized_box_for_whitespace
                     Container(
                       width: MediaQuery.of(context).size.width * .46,
                       child: const Column(
@@ -438,6 +439,7 @@ class ScreenCart extends StatelessWidget {
                         ],
                       ),
                     ),
+                    // ignore: sized_box_for_whitespace
                     Container(
                       width: MediaQuery.of(context).size.width * .46,
                       child: const Column(

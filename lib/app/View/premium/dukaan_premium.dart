@@ -31,10 +31,15 @@ class _ScreenPremiumState extends State<ScreenPremium> {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 35,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: 10,
+                              ),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 35,
+                              ),
                             ),
                             Text(
                               "Dukaan Premium",

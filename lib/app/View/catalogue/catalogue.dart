@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ScreenCatalogue extends StatefulWidget {
-  const ScreenCatalogue({super.key});
+import '../../Controller/catalogue_controller.dart';
+import '../../Controller/info_controller.dart';
 
-  @override
-  State<ScreenCatalogue> createState() => _ScreenCatalogueState();
-}
+// ignore: must_be_immutable
+class ScreenCatalogue extends StatelessWidget {
+  ScreenCatalogue({super.key});
 
-class _ScreenCatalogueState extends State<ScreenCatalogue> {
-  bool isSwitched = true;
-  List<String> imageDress = [
-    "assets/images/T-Shirt1.png",
-    "assets/images/T-Shirt2.png",
-    "assets/images/Mug.png",
-    "assets/images/combo2.png",
-    "assets/images/Mug2.png",
-    "assets/images/combo2.png",
-  ];
-
-  List<String> textTitle = [
-    "Tshirt women",
-    "Tshirt Men",
-    "Mug Fm",
-    "Dress Women",
-    "Mug pottery",
-    "Women dress"
-  ];
-
-  List<String> priceEach = ["₹799", "₹799", "₹399", "₹699", "₹449", "₹699"];
+  CatalogueController catalogueController = Get.put(CatalogueController());
+  final InfoController switchController = Get.put(InfoController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +44,9 @@ class _ScreenCatalogueState extends State<ScreenCatalogue> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      var dressImage = imageDress[index];
-                      var titleText = textTitle[index];
-                      var priceTag = priceEach[index];
+                      var dressImage = catalogueController.imageDress[index];
+                      var titleText = catalogueController.textTitle[index];
+                      var priceTag = catalogueController.priceEach[index];
                       return Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Container(
@@ -151,33 +133,35 @@ class _ScreenCatalogueState extends State<ScreenCatalogue> {
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "in stock",
-                                                style: TextStyle(
-                                                    color: Colors.lightGreen,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              Switch(
-                                                value: isSwitched,
-                                                onChanged: (value) {
-                                                  setState(
-                                                    () {
-                                                      isSwitched = value;
-                                                    },
-                                                  );
-                                                },
-                                                activeTrackColor:
-                                                    const Color.fromARGB(
-                                                        255, 121, 165, 241),
-                                                activeColor: Colors.blue,
-                                              ),
-                                            ],
+                                          Obx(
+                                            () => Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  "in stock",
+                                                  style: TextStyle(
+                                                      color: Colors.lightGreen,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                Switch(
+                                                  value: switchController
+                                                      .isSwitched.value,
+                                                  onChanged: (value) {
+                                                    switchController
+                                                        .switchcontroller(
+                                                            value);
+                                                  },
+                                                  activeTrackColor:
+                                                      const Color.fromARGB(
+                                                          255, 121, 165, 241),
+                                                  activeColor: Colors.blue,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

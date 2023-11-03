@@ -1,42 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ScreenPayment extends StatefulWidget {
-  const ScreenPayment({super.key});
+import '../../Controller/payment_controller.dart';
 
-  @override
-  State<ScreenPayment> createState() => _ScreenPaymentState();
-}
+class ScreenPayment extends StatelessWidget {
+  ScreenPayment({super.key});
 
-class _ScreenPaymentState extends State<ScreenPayment> {
-  int isPressed = 0;
-
-  List<String> imageDress = [
-    "assets/images/T-Shirt1.png",
-    "assets/images/T-Shirt2.png",
-    "assets/images/Mug.png",
-    "assets/images/combo2.png",
-  ];
-
-  List<String> priceEach = [
-    "₹799",
-    "₹799",
-    "₹399",
-    "₹699",
-  ];
-
-  List<String> timeDate = [
-    "jul 12, 02:06 PM",
-    "Apr 26, 07:47 AM",
-    "Apr 11, 10:54 AM",
-    "Apr 02, 11:29 AM",
-  ];
-
-  List<String> orderNumber = [
-    "Order #1688068",
-    "Order #1457741",
-    "Order #1408896",
-    "Order #1369633",
-  ];
+  PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -316,74 +286,80 @@ class _ScreenPaymentState extends State<ScreenPayment> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isPressed = 0;
-                      });
-                    },
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 94, 94, 94)),
-                      backgroundColor: MaterialStateProperty.all(isPressed == 0
-                          ? Colors.blue
-                          : const Color.fromARGB(255, 198, 198, 198)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Obx(
+                    () => TextButton(
+                      onPressed: () {
+                        paymentController.buttonController(0);
+                      },
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 94, 94, 94)),
+                        backgroundColor: MaterialStateProperty.all(
+                            paymentController.isPressed.value == 0
+                                ? Colors.blue
+                                : const Color.fromARGB(255, 198, 198, 198)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(
+                              100, 30), // Set the desired width and height
                         ),
                       ),
-                      fixedSize: MaterialStateProperty.all<Size>(
-                        const Size(100, 30), // Set the desired width and height
-                      ),
+                      child: const Text("On hold"),
                     ),
-                    child: const Text("On hold"),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isPressed = 1;
-                      });
-                    },
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 94, 94, 94)),
-                      backgroundColor: MaterialStateProperty.all(isPressed == 1
-                          ? Colors.blue
-                          : const Color.fromARGB(255, 198, 198, 198)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Obx(
+                    () => TextButton(
+                      onPressed: () {
+                        paymentController.buttonController(1);
+                      },
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 94, 94, 94)),
+                        backgroundColor: MaterialStateProperty.all(
+                            paymentController.isPressed.value == 1
+                                ? Colors.blue
+                                : const Color.fromARGB(255, 198, 198, 198)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(
+                              100, 30), // Set the desired width and height
                         ),
                       ),
-                      fixedSize: MaterialStateProperty.all<Size>(
-                        const Size(100, 30), // Set the desired width and height
-                      ),
+                      child: const Text("Payouts (15)"),
                     ),
-                    child: const Text("Payouts (15)"),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isPressed = 2;
-                      });
-                    },
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 94, 94, 94)),
-                      backgroundColor: MaterialStateProperty.all(isPressed == 2
-                          ? Colors.blue
-                          : const Color.fromARGB(255, 198, 198, 198)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Obx(
+                    () => TextButton(
+                      onPressed: () {
+                        paymentController.buttonController(2);
+                      },
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 94, 94, 94)),
+                        backgroundColor: MaterialStateProperty.all(
+                            paymentController.isPressed.value == 2
+                                ? Colors.blue
+                                : const Color.fromARGB(255, 198, 198, 198)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(
+                              100, 30), // Set the desired width and height
                         ),
                       ),
-                      fixedSize: MaterialStateProperty.all<Size>(
-                        const Size(100, 30), // Set the desired width and height
-                      ),
+                      child: const Text("Refunds"),
                     ),
-                    child: const Text("Refunds"),
                   ),
                 ],
               ),
@@ -392,10 +368,10 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  var dressImage = imageDress[index];
-                  var priceTag = priceEach[index];
-                  var dateTime = timeDate[index];
-                  var numberOrder = orderNumber[index];
+                  var dressImage = paymentController.imageDress[index];
+                  var priceTag = paymentController.priceEach[index];
+                  var dateTime = paymentController.timeDate[index];
+                  var numberOrder = paymentController.orderNumber[index];
                   return Padding(
                     padding: const EdgeInsets.all(15.0),
                     // ignore: sized_box_for_whitespace
@@ -409,7 +385,7 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                             height: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.red,
+                              color: Colors.grey[300],
                             ),
                             child: Image.asset(
                               dressImage,
@@ -491,7 +467,7 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                     ),
                   );
                 },
-                itemCount: 4)
+                itemCount: 4),
           ],
         ),
       ),

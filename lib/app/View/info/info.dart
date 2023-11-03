@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/Screens/login.dart';
+import 'package:get/get.dart';
+import 'package:login_app/app/View/auth/login.dart';
 
-class ScreenInfoo extends StatefulWidget {
-  const ScreenInfoo({super.key});
+import '../../Controller/info_controller.dart';
 
-  @override
-  State<ScreenInfoo> createState() => _ScreenHomeState();
-}
+class ScreenInfoo extends StatelessWidget {
+  ScreenInfoo({super.key});
 
-class _ScreenHomeState extends State<ScreenInfoo> {
-  bool isSwitched = false;
+  final InfoController switchController = Get.put(InfoController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,23 +48,21 @@ class _ScreenHomeState extends State<ScreenInfoo> {
               icon: const Icon(Icons.arrow_forward),
             ),
           ),
-          ListTile(
-            title: const Text(
-              "Whatsapp Chat Support",
-              style: TextStyle(fontSize: 20),
-            ),
-            leading: const Icon(Icons.call),
-            trailing: Switch(
-              value: isSwitched,
-              onChanged: (value) {
-                setState(
-                  () {
-                    isSwitched = value;
-                  },
-                );
-              },
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
+          Obx(
+            () => ListTile(
+              title: const Text(
+                "Whatsapp Chat Support",
+                style: TextStyle(fontSize: 20),
+              ),
+              leading: const Icon(Icons.call),
+              trailing: Switch(
+                value: switchController.isSwitched.value,
+                onChanged: (value) {
+                  switchController.switchcontroller(value);
+                },
+                activeTrackColor: Colors.lightGreenAccent,
+                activeColor: Colors.green,
+              ),
             ),
           ),
           const ListTile(
@@ -99,8 +95,6 @@ class _ScreenHomeState extends State<ScreenInfoo> {
   }
 
   signOut(BuildContext ctx) {
-    Navigator.of(ctx).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (ctx1) => const ScreenLogin()),
-        (route) => false);
+    Get.offAll(ScreenLogin());
   }
 }

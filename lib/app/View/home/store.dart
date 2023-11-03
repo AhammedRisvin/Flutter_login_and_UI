@@ -1,29 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/Screens/info.dart';
+import 'package:get/get.dart';
+import 'package:login_app/app/View/info/info.dart';
+
+import '../../Controller/home_controller.dart';
 
 // ignore: must_be_immutable
 class ScreenStore extends StatelessWidget {
   ScreenStore({super.key});
 
-  List<String> iconImages = [
-    "assets/icons/marketing.png",
-    "assets/icons/mobile-payment.png",
-    "assets/icons/discount.png",
-    "assets/icons/customer.png",
-    "assets/icons/qr-code.png",
-    "assets/icons/indian-rupee.png",
-    "assets/icons/contact-form.png",
-  ];
-
-  List<String> textOne = [
-    "Marketing Designs",
-    "Online Payment",
-    "Discount Coupons",
-    "My Customers",
-    "Store QR Code",
-    "Extra Charges",
-    "Order Form",
-  ];
+  ListController listController = Get.put(ListController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +23,7 @@ class ScreenStore extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const ScreenInfoo()),
+              MaterialPageRoute(builder: (context) => ScreenInfoo()),
             );
           },
           icon: const Icon(Icons.menu),
@@ -61,8 +46,8 @@ class ScreenStore extends StatelessWidget {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10),
               itemBuilder: (context, index) {
-                var textdata = textOne[index];
-                var imageIcon = iconImages[index];
+                var textdata = listController.textOne[index];
+                var imageIcon = listController.iconImages[index];
                 return Container(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(

@@ -1,23 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:login_app/Screens/bottom_navigation.dart';
+import 'package:get/get.dart';
 
-class ScreenLogin extends StatefulWidget {
-  const ScreenLogin({super.key});
+import 'package:login_app/app/Controller/login_controller.dart';
 
-  @override
-  State<ScreenLogin> createState() => _ScreenLoginState();
-}
-
-class _ScreenLoginState extends State<ScreenLogin> {
-  final _usernameController = TextEditingController();
-
-  final _passwordController = TextEditingController();
+class ScreenLogin extends StatelessWidget {
+  ScreenLogin({super.key});
 
   final formKey = GlobalKey<FormState>();
 
-  bool _showPassword = false;
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +49,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
-                        controller: _usernameController,
+                        controller: loginController.usernameController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Email",
@@ -74,20 +67,19 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       const SizedBox(
                         height: 30,
                       ),
-                      TextFormField(
-                          controller: _passwordController,
-                          obscureText: !_showPassword,
+                      Obx(
+                        () => TextFormField(
+                          controller: loginController.passwordController,
+                          obscureText: loginController.showPassword.value,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: "Password",
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  _showPassword = !_showPassword;
-                                });
+                                loginController.passwordVisible();
                               },
-                              child: Icon(_showPassword
+                              child: Icon(loginController.showPassword.value
                                   ? Icons.visibility
                                   : Icons.visibility_off),
                             ),
@@ -98,14 +90,16 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             } else {
                               return null;
                             }
-                          }),
+                          },
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       ElevatedButton.icon(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            checkLogin(context);
+                            loginController.checkLogin(context);
                           } else {
                             log("Data empty".toString());
                           }
@@ -122,42 +116,5 @@ class _ScreenLoginState extends State<ScreenLogin> {
         ),
       ),
     );
-  }
-
-  final username = "ahammedrisvin@gmail.com";
-
-  final password = '123';
-
-  void checkLogin(BuildContext ctx) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _username = _usernameController.text;
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _password = _passwordController.text;
-
-    if (_username == username && _password == password) {
-      Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: (ctx1) => const ScreenbottomNavigationBar()),
-      );
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          duration: Duration(seconds: 3),
-          backgroundColor: Color.fromARGB(255, 2, 117, 0),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(10),
-          content: Text("Successfully logged in"),
-        ),
-      );
-      // Go To Homepage
-    } else {
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          duration: Duration(seconds: 3),
-          backgroundColor: Color.fromARGB(255, 225, 16, 1),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(10),
-          content: Text("Username and password does not match"),
-        ),
-      );
-    }
   }
 }
